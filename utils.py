@@ -1,23 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-# 这段代码定义了几个函数，用于评估机器学习模型在回归任务中的性能指标：
-#
-# Root Mean Squared Error (RMSE):
-# 计算真实标签 y 和预测结果 f 之间的均方根误差，即预测值与真实值之间的平方差的均值的平方根。
-#
-# Mean Squared Error (MSE):
-# 计算真实标签 y 和预测结果 f 之间的均方误差，即预测值与真实值之间的平方差的均值。
-#
-# Pearson相关系数 (Pearson Correlation Coefficient):
-# 衡量真实标签 y 和预测结果 f 之间的线性相关性。
-#
-# Spearman秩相关系数 (Spearman Rank Correlation Coefficient):
-# 衡量真实标签 y 和预测结果 f 之间的非线性相关性。
-#
-# Concordance Index (CI):
-# 计算协调指数，用于评估预测结果的排序与真实结果排序之间的一致性。
-
 
 import os
 import numpy as np
@@ -81,7 +64,7 @@ class TestbedDataset(InMemoryDataset):
             smiles = xd[i]
             target = xt[i]
             labels = y[i]
-            dynamic_feat = dynamic_features[i]  # 获取动态特征
+            dynamic_feat = dynamic_features[i]  
             # convert SMILES to molecular representation using rdkit
             c_size, features, edge_index = smile_graph[smiles]
             if (len(edge_index) == 0 or np.array(edge_index).ndim < 2):
@@ -92,7 +75,7 @@ class TestbedDataset(InMemoryDataset):
                                 y=torch.FloatTensor([labels]))
             GCNData.target = torch.LongTensor([target])
             GCNData.__setitem__('c_size', torch.LongTensor([c_size]))
-            GCNData.__setitem__('dynamic_features', torch.FloatTensor(dynamic_feat))  # 保存动态特征
+            GCNData.__setitem__('dynamic_features', torch.FloatTensor(dynamic_feat))  
             # append graph, label and target sequence to data list
             data_list.append(GCNData)
 
